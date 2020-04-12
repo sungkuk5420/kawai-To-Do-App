@@ -35,7 +35,7 @@ export default class App extends React.Component {
             onSubmitEditing={this._addToDo}
             underlineColorAndroid={"transparent"}
           />
-          <ScrollView>
+          <ScrollView contentContainerStyle={styles.toDos}>
             <Todo></Todo>
           </ScrollView>
         </View>
