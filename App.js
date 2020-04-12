@@ -7,12 +7,18 @@ import {
   TextInput,
   Dimensions,
   Platform,
+  ScrollView,
 } from "react-native";
+import Todo from "./Todo";
 
 const { height, width } = Dimensions.get("window");
 
 export default class App extends React.Component {
+  state = {
+    newTodo:""
+  }
   render() {
+    const {newTodo} = this.state;
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
@@ -21,16 +27,26 @@ export default class App extends React.Component {
           <TextInput
             style={styles.input}
             placeholder={"New To Do"}
-            value=""
+            value={newTodo}
+            onChangeText={this._controllNewTodo}
             placeholderTextColor={"#999"}
             returnKeyType={"done"}
             autoCorrect={false}
             onSubmitEditing={this._addToDo}
             underlineColorAndroid={"transparent"}
           />
+          <ScrollView>
+            <Todo></Todo>
+          </ScrollView>
         </View>
       </View>
     );
+  }
+
+  _controllNewTodo = text => {
+    this.setState({
+      newTodo:text
+    })
   }
 }
 
