@@ -1,9 +1,20 @@
 import React, {Component} from "react";
 import {View, Text, StyleSheet, TouchableOpacity, Dimensions, TextInput} from "react-native";
+import PropTypes from "prop-types";
 
 const {width,height} = Dimensions.get("window");
 
 export default class ToDo extends Component {
+    constructor(props){
+        super(props);
+        this.state = {isEditing:false,toDoValue:props.text}
+    }
+    static PropTypes = {
+        text:PropTypes.string.isRequired,
+        isCompleted:PropTypes.bool.isRequired,
+        deleteToDo:PropTypes.func.isRequired,
+        id:PropTypes.string.isRequired
+    }
     state = {
         isEditing :false,
         isCompleted : false,
@@ -11,7 +22,7 @@ export default class ToDo extends Component {
     }
     render(){
         const {isCompleted,isEditing,toDoValue} = this.state;
-        const {text} =this.props;
+        const {text,id,deleteToDo} =this.props;
         return (
             <View style={styles.container}>
                 <View style={styles.column}>
@@ -84,10 +95,8 @@ export default class ToDo extends Component {
         })
     }
     _startEditing = () => {
-        const {text} = this.props;
         this.setState(prevState=>{
             return {
-                toDoValue : text,
                 isEditing : true
             }
         })
